@@ -43,6 +43,7 @@ Notebook (Python)            PostgreSQL                         Power BI
                        │  fact_sales            │
                        │  dim_customer          │
                        │  dim_product           │
+                       │  dim_date              │
                        └────────────────────────┘
 ```
 
@@ -56,10 +57,10 @@ Notebook (Python)            PostgreSQL                         Power BI
 
 | Bảng | Khóa | Cột chính |
 |---|---|---|
-| `fact_sales` | — | invoice_no, invoice_date, customer_id, stock_code, country, quantity, unit_price |
+| `fact_sales` |  | invoice_no, invoice_date, customer_id, stock_code, country, quantity, unit_price |
 | `dim_customer` | customer_id | recency, frequency, monetary, cluster_id |
 | `dim_product` | stock_code | description |
-| `dim_date` | date | tạo bằng bảng tính toán trong Power BI |
+| `dim_date` |  |
 
 ![Data Model](images/Data%20Model.png)
 
