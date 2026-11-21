@@ -43,13 +43,14 @@ Notebook (Python)            PostgreSQL                         Power BI
                        │  fact_sales            │
                        │  dim_customer          │
                        │  dim_product           │
+                       │  dim_date              │
                        └────────────────────────┘
 ```
 
 **Quyết định thiết kế**
 
 - **ELT:** notebook ghi dữ liệu thô vào `staging`, SQL tách thành `dw`.
-- **Mô hình tối giản:** chỉ 3 bảng
+- **Mô hình:** 1 bảng fact và 3 bảng dim.
 
 
 ### Mô hình dữ liệu (Star Schema)
@@ -59,7 +60,9 @@ Notebook (Python)            PostgreSQL                         Power BI
 | `fact_sales` | — | invoice_no, invoice_date, customer_id, stock_code, country, quantity, unit_price |
 | `dim_customer` | customer_id | recency, frequency, monetary, cluster_id |
 | `dim_product` | stock_code | description |
-| `dim_date` | date | tạo bằng bảng tính toán trong Power BI |
+| `dim_date` | date | year, quarter, month_number, month_name, year_month, day_of_week, day_name, is_weekend |
+
+Quan hệ: `fact_sales` nối với `dim_customer` qua `customer_id`, với `dim_product` qua `stock_code`, với `dim_date` qua `invoice_date = date`. Cả ba đều là khóa ngoại trong PostgreSQL.
 
 ![Data Model](images/Data%20Model.png)
 
@@ -70,7 +73,7 @@ Notebook (Python)            PostgreSQL                         Power BI
    - **F**requency: số đơn hàng
    - **M**onetary: tổng chi tiêu
 2. Biến đổi **Box-Cox** để giảm lệch, rồi **StandardScaler**.
-3. **K-Means với k = 4** (`random_state=42`).
+3. **K-Means với k = 4**.
 
 
 ## 5. Kết quả: 4 cụm khách hàng
